@@ -27,6 +27,7 @@ fi
 
 test -f $DAEMON || exit 0
 
+. /lib/lsb/init-functions
 . /etc/chilli/functions
 
 MULTI=$(ls /etc/chilli/*/chilli.conf 2>/dev/null)
@@ -126,8 +127,7 @@ case "$1" in
 	;;
     
     status)
-	status chilli
-	RETVAL=$?
+	status_of_proc -p /var/run/$NAME.$HS_LANIF.pid "$DAEMON" "$NAME" && exit 0 || exit $?
 	;;
     
     *)
